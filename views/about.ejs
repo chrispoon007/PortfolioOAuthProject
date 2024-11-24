@@ -1,0 +1,8 @@
+<!-- /views/about.ejs -->
+<%- include("partials/header") %>
+<main>
+  <h1>About Me</h1>
+  <p>Welcome, <%= user.displayName %>! This is your About Me section.</p>
+  <p>Email: <%= user.emails[0].value %></p>
+</main>
+

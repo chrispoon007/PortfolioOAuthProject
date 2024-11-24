@@ -1,0 +1,10 @@
+<%- include("partials/header") %>
+<main>
+    <h1>Welcome to My Portfolio</h1>
+    <% if (user) { %>
+    <p>Hello, <%= user.displayName %>! You are logged in.</p>
+    <% } else { %>
+    <p>Please <a href="/auth/google">log in</a> to access exclusive features.</p>
+    <% } %>
+</main>
+

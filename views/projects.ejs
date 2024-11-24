@@ -1,0 +1,11 @@
+<%- include("partials/header") %>
+<main>
+    <h1>My Projects</h1>
+    <p>Here you can manage and add new projects!</p>
+    <form method="POST" action="/projects/add">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" name="projectName" required>
+        <button type="submit">Add Project</button>
+    </form>
+</main>
+
