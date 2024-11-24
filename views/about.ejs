@@ -1,8 +1,110 @@
 <!-- /views/about.ejs -->
 <%- include("partials/header") %>
 <main>
-  <h1>About Me</h1>
-  <p>Welcome, <%= user.displayName %>! This is your About Me section.</p>
+  <div class="header-container">
+    <h1>My Portfolio</h1>
+    <% if (user.photo) { %>
+      <img src="<%= user.photo %>" alt="Profile Photo" class="profile-photo">
+    <% } %>
+  </div>
+  <p>Welcome, <%= user.displayName %>! This is your portfolio!</p>
   <p>Email: <%= user.emails[0].value %></p>
-</main>
 
+  <div class="button-container">
+    <button id="editAboutBtn" class="btn">Edit Portfolio</button>
+    <button id="uploadPhotoBtn" class="btn">Upload Photo</button>
+  </div>
+
+  <div class="about-info">
+    <h2>Personal Introduction</h2>
+    <p><%= user.personalIntroduction || 'Not provided' %></p>
+
+    <h2>Skills and Expertise</h2>
+    <p><%= user.skillsExpertise || 'Not provided' %></p>
+
+    <h2>Professional Experience</h2>
+    <p><%= user.professionalExperience || 'Not provided' %></p>
+
+    <h2>Education</h2>
+    <p><%= user.education || 'Not provided' %></p>
+
+    <h2>Contact Information</h2>
+    <p><%= user.contactInformation || 'Not provided' %></p>
+  </div>
+
+  <!-- Edit About Me Modal -->
+  <div id="editAboutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit About Me</h2>
+      <form id="aboutForm" action="/edit/about" method="POST">
+        <label for="personal-introduction">Personal Introduction:</label>
+        <textarea id="personal-introduction" name="personalIntroduction" required><%= user.personalIntroduction || '' %></textarea>
+
+        <label for="skills-expertise">Skills and Expertise:</label>
+        <textarea id="skills-expertise" name="skillsExpertise" required><%= user.skillsExpertise || '' %></textarea>
+
+        <label for="professional-experience">Professional Experience:</label>
+        <textarea id="professional-experience" name="professionalExperience" required><%= user.professionalExperience || '' %></textarea>
+
+        <label for="education">Education:</label>
+        <textarea id="education" name="education" required><%= user.education || '' %></textarea>
+
+        <label for="contact-information">Contact Information:</label>
+        <textarea id="contact-information" name="contactInformation" required><%= user.contactInformation || '' %></textarea>
+
+        <button type="submit" class="btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Upload Photo Modal -->
+  <div id="uploadPhotoModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Upload Profile Photo</h2>
+      <form id="uploadPhotoForm" action="/upload/photo" method="POST" enctype="multipart/form-data">
+        <label for="profile-photo">Choose a photo:</label>
+        <input type="file" id="profile-photo" name="profilePhoto" accept="image/*" required>
+        <button type="submit" class="btn">Upload Photo</button>
+      </form>
+    </div>
+  </div>
+</main>
+<script>
+  // Get modal elements
+  var editModal = document.getElementById("editAboutModal");
+  var uploadModal = document.getElementById("uploadPhotoModal");
+  var editBtn = document.getElementById("editAboutBtn");
+  var uploadBtn = document.getElementById("uploadPhotoBtn");
+  var closeBtns = document.getElementsByClassName("close");
+
+  // Open the edit about modal
+  editBtn.onclick = function() {
+    editModal.style.display = "block";
+  }
+
+  // Open the upload photo modal
+  uploadBtn.onclick = function() {
+    uploadModal.style.display = "block";
+  }
+
+  // Close the modals
+  for (var i = 0; i < closeBtns.length; i++) {
+    closeBtns[i].onclick = function() {
+      editModal.style.display = "none";
+      uploadModal.style.display = "none";
+    }
+  }
+
+  // Close the modals when clicking outside of them
+  window.onclick = function(event) {
+    if (event.target == editModal) {
+      editModal.style.display = "none";
+    }
+    if (event.target == uploadModal) {
+      uploadModal.style.display = "none";
+    }
+  }
+</script>
+<%- include("partials/footer") %>

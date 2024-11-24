@@ -2,8 +2,94 @@
 <main>
     <h1>My GitHub Contributions</h1>
     <p>Here is a summary of my recent contributions on GitHub.</p>
-    <!-- GitHub Contributions Widget -->
-    <iframe src="https://ghbtns.com/github-btn.html?user=<YOUR_GITHUB_USERNAME>&repo=<YOUR_REPO_NAME>&type=activity&count=true"
-            width="800" height="600" frameborder="0" scrolling="0" style="border: none;"></iframe>
-</main>
 
+    <% if (!user.githubUsername) { %>
+        <form id="githubUsernameForm" action="/edit/github-username" method="POST">
+            <label for="github-username">Enter your GitHub username:</label>
+            <input type="text" id="github-username" name="githubUsername" required>
+            <button type="submit" class="btn">Save</button>
+        </form>
+    <% } else { %>
+        <p>Your GitHub Username is <strong><%= user.githubUsername %></strong></p>
+        <button id="editGithubUsernameBtn" class="btn">Edit GitHub Username</button>
+
+        <!-- Loading Message -->
+        <p id="loading-message" style="color: blue; margin-top: 20px;">Loading GitHub Contribution Calendar Widget...</p>
+
+        <!-- GitHub Contributions Widget -->
+        <div id="calendar-component" username="<%= user.githubUsername %>" theme-color="#4285f4" style="margin-top: 20px;"></div>
+        <div id="widget-placeholder" style="display: none; color: red; margin-top: 20px;">GitHub Contribution Calendar Widget Not Loaded (Check Username)</div>
+
+        <!-- Edit GitHub Username Modal -->
+        <div id="editGithubUsernameModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit GitHub Username</h2>
+                <form id="editGithubUsernameForm" action="/edit/github-username" method="POST">
+                    <label for="edit-github-username">GitHub Username:</label>
+                    <input type="text" id="edit-github-username" name="githubUsername" value="<%= user.githubUsername %>" required>
+                    <button type="submit" class="btn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Include the GitHub Contribution Calendar Widget script -->
+        <script type="module" defer src="https://cdn.jsdelivr.net/gh/imananoosheh/github-contributions-fetch@latest/github_calendar_widget.js"></script>
+    <% } %>
+</main>
+<%- include("partials/footer") %>
+
+<script>
+  // Get modal elements
+  var modal = document.getElementById("editGithubUsernameModal");
+  var btn = document.getElementById("editGithubUsernameBtn");
+  var span = document.getElementsByClassName("close")[0];
+
+  // Open the modal
+  if (btn) {
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+  }
+
+  // Close the modal
+  if (span) {
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+  }
+
+  // Close the modal when clicking outside of it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Check if the widget has loaded
+  window.addEventListener('load', function() {
+    var calendarComponent = document.getElementById("calendar-component");
+    var widgetPlaceholder = document.getElementById("widget-placeholder");
+    var loadingMessage = document.getElementById("loading-message");
+
+    // Use MutationObserver to detect changes in the calendar component
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.addedNodes.length > 0) {
+          loadingMessage.style.display = "none";
+          observer.disconnect();
+        }
+      });
+    });
+
+    observer.observe(calendarComponent, { childList: true });
+
+    // Check if the calendar component has any children (indicating it has loaded)
+    setTimeout(function() {
+      if (!calendarComponent.hasChildNodes()) {
+        widgetPlaceholder.style.display = "block";
+        loadingMessage.style.display = "none";
+      }
+    }, 4000); // Wait 4 seconds before checking
+  });
+</script>

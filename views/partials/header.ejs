@@ -5,21 +5,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header>
     <nav>
-      <ul>
+      <ul class="nav-left">
         <li><a href="/">Home</a></li>
-        <li><a href="/about">About Me</a></li>
-        <li><a href="/projects">Projects</a></li>
-        <li><a href="/github-contributions">GitHub Contributions</a></li>
+      </ul>
+      <ul class="nav-center">
+        <% if (user) { %>
+        <li><a href="/about">My Portfolio</a></li>
+        <li><a href="/projects">My Projects</a></li>
+        <li><a href="/github-contributions">My GitHub Contributions</a></li>
+        <% } %>
+      </ul>
+      <ul class="nav-right">
         <% if (user) { %>
           <li><a href="/logout">Logout</a></li>
         <% } else { %>
-          <li><a href="/auth/google">Login with Google</a></li>
+          <li><a href="/login">Login</a></li>
         <% } %>
       </ul>
     </nav>
   </header>
+</body>
+</html>
