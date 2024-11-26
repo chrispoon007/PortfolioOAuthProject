@@ -112,24 +112,64 @@ a {
   color: inherit;
 }
 
+/* Highlight Log in */
+.highlight {
+  font-weight: bold;
+  color: #007bff; /* Change to your preferred color */
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.highlight:hover {
+  color: #0056b3; /* Change to your preferred hover color */
+}
+
 /* Header container styles */
 .header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 20px; 
+}
+
+.image-container img {
+  max-width: 400px; 
+  height: 100%; 
+  object-fit: cover; 
+  margin-left: 35px;
+  border-radius: 10px; 
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; 
+  margin-bottom: 10px;
+}
+
+/* Portfolio photo */
+.profile-photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  max-width: 200px;
+  max-height: 250px;
+  width: auto;
+  height: auto;
+  margin-right: 50px;
+}
+
+/* Header container styles */
+.header-container-about {
   position: relative; /* Make the container a positioning context */
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-/* Profile photo styles */
-.profile-photo {
-  position: absolute; 
-  right: 0; 
-  top: 0; 
-  max-width: 200px; 
-  max-height: 250px; 
-  width: auto; 
-  height: auto; 
-  margin-right: 50px;
 }
 
 /* Responsive Design */

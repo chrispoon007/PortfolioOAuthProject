@@ -1,15 +1,23 @@
 <%- include("partials/header") %>
 <main>
-    <h1>Welcome to My Portfolio</h1>
-    <% if (user) { %>
-    <p>Hello, <%= user.displayName %>! You are logged in.</p>
-    <div class="button-container">
-        <a href="/about" class="btn">My Portfolio</a>
-        <a href="/projects" class="btn">My Projects</a>
-        <a href="/github-contributions" class="btn">My GitHub Contributions</a>
+    <div class="header-container">
+        <div class="info-container">
+            <h1>Welcome to My Portfolio</h1>
+            <% if (user) { %>
+            <p>Hello, <%= user.displayName %>! You are logged in.</p>
+            <p>Email: <%= user.emails[0].value %></p>
+            <div class="button-container">
+                <a href="/about" class="btn">My Portfolio</a>
+                <a href="/projects" class="btn">My Projects</a>
+                <a href="/github-contributions" class="btn">My GitHub Contributions</a>
+            </div>
+            <% } else { %>
+            <p>Please <a href="/login" class="highlight">log in</a> to access your portfolio and projects!</p>
+            <% } %>
+        </div>
+        <div class="image-container">
+            <img src="/pictures/homepic.jpg" alt="Portfolio Picture">
+        </div>
     </div>
-    <% } else { %>
-    <p>Please <a href="/login">log in</a> to access your portfolio and projects!</p>
-    <% } %>
 </main>
 <%- include("partials/footer") %>

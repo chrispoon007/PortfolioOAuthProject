@@ -5,29 +5,18 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const fs = require("fs").promises;
 const path = require("path");
 const multer = require("multer");
-const { createClient } = require("redis");
-const RedisStore = require("connect-redis").default; // Correctly import and initialize RedisStore
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Setup Redis Client
-const redisClient = createClient({
-  legacyMode: true // Use legacy mode if Redis returns a warning
-});
-redisClient.connect().catch(console.error); // Connect to Redis server
-
 // Middleware
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-
-// Session middleware using Redis as store
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }), // Using Redis to store sessions
-    secret: process.env.SESSION_SECRET || "secure-key", // Use environment variable for session secret
+    secret: "secure-key",
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false } // Set to true if using HTTPS
@@ -150,19 +139,12 @@ app.get("/", (req, res) => {
     res.render("index", { user: null });
   }
 });
-app.get("/about", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render("about", { user: req.user });
-  } else {
-    res.render("about", { user: null });
-  }
-});
 
-// app.get("/about", ensureAuthenticated, async (req, res) => {
-//   const users = await readUserData();
-//   const user = users[req.user.id] || req.user;
-//   res.render("about", { user });
-// });
+app.get("/about", ensureAuthenticated, async (req, res) => {
+  const users = await readUserData();
+  const user = users[req.user.id] || req.user;
+  res.render("about", { user });
+});
 
 app.post("/edit/about", ensureAuthenticated, async (req, res) => {
   const { personalIntroduction, skillsExpertise, professionalExperience, education, contactInformation } = req.body;
