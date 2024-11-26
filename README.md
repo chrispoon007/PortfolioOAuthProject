@@ -36,6 +36,8 @@ TO DO:
 
     - Setup Digital Ocean Droplet
     - NGINX/Load Balancer Stuff
+    - Documentation
+    - Presentation
 
 
 
