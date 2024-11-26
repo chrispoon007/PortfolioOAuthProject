@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/chrispoon007/PortfolioOAuthProject/issues"
   },
-  "homepage": "https://github.com/chrispoon007/PortfolioOAuthProject#readme"
+  "homepage": "https://github.com/chrispoon007/PortfolioOAuthProject#readme",
+  "dependencies": {
+    "connect-redis": "^7.1.1",
+    "redis": "^4.7.0"
+  }
 }
