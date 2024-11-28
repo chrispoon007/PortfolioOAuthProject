@@ -13,9 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Setup Redis Client
-const redisClient = createClient({
-  legacyMode: true // Use legacy mode if Redis returns a warning
-});
+const redisClient = createClient();
 redisClient.connect().catch(console.error); // Connect to Redis server
 
 // Middleware
@@ -81,6 +79,9 @@ app.get(
     });
   }
 );
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Logout Route
 app.get("/logout", (req, res) => {
