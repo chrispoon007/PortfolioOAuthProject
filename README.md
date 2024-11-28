@@ -1,6 +1,11 @@
 # PortfolioOAuthProject
 Web Server Project 2
 
+THIS BRANCH APP ONLY WORKS IF REDIS IS SETUP ON YOUR HOST MACHINE. IF YOU DO NOT HAVE REDIS SETUP, PLEASE USE "app before redis.js" FILE.
+
+WEBSITE:
+    
+        - https://webpersona.duckdns.org/
 HOW TO RUN ON LOCALHOST:
     
         - Clone the repository
