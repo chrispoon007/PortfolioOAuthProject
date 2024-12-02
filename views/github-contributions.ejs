@@ -1,6 +1,9 @@
 <%- include("partials/header") %>
 <main>
-    <h1>My GitHub Contributions</h1>
+  <div class="git-header">
+    <h1>My GitHub Contributions</h1>    
+    <img src="/pictures/github-mark.png" alt="GitHub Logo" class="github-logo">
+  </div>
     <p>Here is a summary of my recent contributions on GitHub.</p>
 
     <% if (!user.githubUsername) { %>

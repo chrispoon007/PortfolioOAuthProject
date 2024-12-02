@@ -5,18 +5,27 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const fs = require("fs").promises;
 const path = require("path");
 const multer = require("multer");
+const { createClient } = require("redis");
+const RedisStore = require("connect-redis").default; // Correctly import and initialize RedisStore
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Setup Redis Client
+const redisClient = createClient();
+redisClient.connect().catch(console.error); // Connect to Redis server
+
 // Middleware
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+
+// Session middleware using Redis as store
 app.use(
   session({
-    secret: "secure-key",
+    store: new RedisStore({ client: redisClient }), // Using Redis to store sessions
+    secret: process.env.SESSION_SECRET || "secure-key", // Use environment variable for session secret
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false } // Set to true if using HTTPS
@@ -70,6 +79,9 @@ app.get(
     });
   }
 );
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Logout Route
 app.get("/logout", (req, res) => {
@@ -127,9 +139,6 @@ async function writeGitHubData(githubData) {
     JSON.stringify(githubData, null, 2)
   );
 }
-
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.get("/", (req, res) => {

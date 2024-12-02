@@ -34,6 +34,7 @@ nav ul {
   padding: 0;
   margin: 0;
   display: flex;
+  white-space: nowrap;
 }
 
 nav ul.nav-left {
@@ -57,11 +58,15 @@ nav ul li {
 nav ul li a {
   text-decoration: none;
   color: #fff; /* White text color */
+  padding: 8px 12px;
+  border-radius: 1px;
 }
 
 nav ul li a:hover {
-  text-decoration: underline;
+  background-color: #007bff;
+  border-radius: 4px;
 }
+
 
 /* Main Content Styles */
 main {
@@ -160,18 +165,44 @@ a {
   gap: 1rem;
 }
 
+/* About Page */
+.about-container {
+  border: 2px solid black;
+  padding: 20px;
+  margin-top: 20px;
+}
+
 /* Portfolio photo */
 .profile-photo {
   position: absolute;
   right: 0;
   top: 0;
-  max-width: 200px;
-  max-height: 250px;
-  width: auto;
-  height: auto;
+  width: 150px;
+  height: 150px;
   margin-right: 50px;
+  border: #444 5px solid;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
+.profile-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+/* GitHub Page */
+.git-header {
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.git-header img {
+  height: 2.5rem;
+  width: auto;
+  margin-bottom: 20px;
+}
 
 
 /* Responsive Design */
@@ -207,6 +238,12 @@ footer {
 footer p {
   font-size: 1rem;
 }
+
+
+
+
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

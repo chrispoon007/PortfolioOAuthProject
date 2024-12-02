@@ -2,33 +2,46 @@
 <%- include("partials/header") %>
 <main>
   <div class="header-container-about">
-    <h1>My Portfolio</h1>
+    <h1>My Portfolio 🖋️</h1>
     <% if (user.photo) { %>
       <img src="<%= user.photo %>" alt="Profile Photo" class="profile-photo">
     <% } %>
   </div>
-  <p>This is your portfolio!</p>
 
-  <div class="button-container">
-    <button id="editAboutBtn" class="btn">Edit Portfolio</button>
-    <button id="uploadPhotoBtn" class="btn">Upload Photo</button>
+  <div class="edit-container">
+    <p>This is your portfolio!</p>
+
+    <div class="button-container">
+      <button id="editAboutBtn" class="btn">Edit Portfolio</button>
+      <button id="uploadPhotoBtn" class="btn">Upload Photo</button>
+    </div>
   </div>
 
   <div class="about-info">
-    <h2>Personal Introduction</h2>
-    <p><%= user.personalIntroduction || 'Not provided' %></p>
+    <div class="about-container">
+      <h2>Personal Introduction</h2>
+      <p><%= user.personalIntroduction || 'Not provided' %></p>
+    </div>
 
-    <h2>Skills and Expertise</h2>
-    <p><%= user.skillsExpertise || 'Not provided' %></p>
+    <div class="about-container">
+      <h2>Skills and Expertise</h2>
+      <p><%= user.skillsExpertise || 'Not provided' %></p>
+    </div>
 
-    <h2>Professional Experience</h2>
-    <p><%= user.professionalExperience || 'Not provided' %></p>
+    <div class="about-container">
+      <h2>Professional Experience</h2>
+      <p><%= user.professionalExperience || 'Not provided' %></p>
+    </div>
 
-    <h2>Education</h2>
-    <p><%= user.education || 'Not provided' %></p>
+    <div class="about-container">
+      <h2>Education</h2>
+      <p><%= user.education || 'Not provided' %></p>
+    </div>
 
-    <h2>Contact Information</h2>
-    <p><%= user.contactInformation || 'Not provided' %></p>
+    <div class="about-container">
+      <h2>Contact Information</h2>
+      <p><%= user.contactInformation || 'Not provided' %></p>
+    </div>
   </div>
 
   <!-- Edit About Me Modal -->
